@@ -1,0 +1,21 @@
+<p>gift-gallery works!</p>
+
+<table class="table-bordered">
+    <thead>
+        <tr>
+            <th> קוד מתנה </th>
+            <th>שם מתנה </th>
+            <th>מחיר כרטיס </th>
+        </tr>
+    </thead>
+    <tbody>
+    
+        @for(b of listOfGifts; track b.id){
+        <tr>
+            <td>{{b.id}}</td>
+            <td><input type="text" #txt{{$index}} [(ngModel)]="b.name" /></td>
+            <td><input type="number" #txt{{$index}} [(ngModel)]="b.ticketPrice" /></td>
+        </tr>
+        }
+    </tbody>
+</table>
