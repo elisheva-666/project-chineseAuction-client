@@ -1,20 +1,39 @@
 <p>gift-gallery works!</p>
+<!-- 
+<div>
+    <input type="text" #newName placeholder="שם המתנה החדשה" />
+    <button (click)="add(newName.value); newName.value=''">הוסף מתנה</button>
+</div> -->
 
-<table class="table-bordered">
+<hr />
+
+<table class="table-bordered" border="1">
     <thead>
         <tr>
             <th> קוד מתנה </th>
-            <th>שם מתנה </th>
-            <th>מחיר כרטיס </th>
+            <th> שם מתנה </th>
+            <th> מחיר כרטיס </th>
+            <th> פעולות </th>
         </tr>
     </thead>
     <tbody>
-    
-        @for(b of listOfGifts; track b.id){
+        @for(b of listOfGifts; track b.id) {
         <tr>
-            <td>{{b.id}}</td>
-            <td><input type="text" #txt{{$index}} [(ngModel)]="b.name" /></td>
-            <td><input type="number" #txt{{$index}} [(ngModel)]="b.ticketPrice" /></td>
+            <td>{{ b.id }}</td>
+            <td>
+                <input type="text" [(ngModel)]="b.name" />
+            </td>
+            <td>
+                <input type="number" [(ngModel)]="b.ticketPrice" />
+            </td>
+            <td>
+                <button (click)="save(b)">שמור</button>
+                <button (click)="delete(b.id)">מחק</button>
+            </td>
+        </tr>
+        } @empty {
+        <tr>
+            <td colspan="4">אין מתנות להצגה</td>
         </tr>
         }
     </tbody>
