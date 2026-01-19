@@ -1,0 +1,209 @@
+// ייבוא פונט
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap');
+
+// משתנים (Variables) לשינוי קל של צבעים בעתיד
+$bg-dark: #0f172a;
+$bg-gradient: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+$primary-purple: #a855f7;
+$primary-pink: #ec4899;
+$text-color: #ffffff;
+$text-muted: #94a3b8;
+$card-bg: rgba(255, 255, 255, 0.05);
+
+:host {
+  display: block;
+  font-family: 'Heebo', sans-serif;
+  background-color: $bg-dark;
+  color: $text-color;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.home-container {
+
+  // --- Hero Section ---
+  .hero {
+    position: relative;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: $bg-gradient;
+    overflow: hidden;
+
+    .content {
+      z-index: 10;
+      max-width: 800px;
+      padding: 20px;
+
+      h1 {
+        font-size: 4rem;
+        font-weight: 900;
+        margin-bottom: 1rem;
+        background: linear-gradient(to right, $primary-purple, $primary-pink);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 1.2;
+      }
+
+      .subtitle {
+        font-size: 1.5rem;
+        color: #cbd5e1;
+        margin-bottom: 3rem;
+        font-weight: 300;
+      }
+
+      // כפתור המעבר לקטלוג
+      .cta-button {
+        background: linear-gradient(45deg, $primary-purple, $primary-pink);
+        border: none;
+        padding: 18px 40px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: white;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow: 0 0 20px rgba($primary-purple, 0.5);
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+
+        .icon {
+          font-size: 1.4rem;
+        }
+
+        // שימוש ב-& עבור Hover (תכונה של SCSS)
+        &:hover {
+          transform: translateY(-3px) scale(1.05);
+          box-shadow: 0 0 40px rgba($primary-pink, 0.7);
+        }
+      }
+    }
+
+    // אלמנטים זוהרים ברקע
+    .glowing-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      z-index: 1;
+
+      &.orb-1 {
+        width: 300px;
+        height: 300px;
+        background: $primary-purple;
+        top: -50px;
+        right: -50px;
+        animation: float 6s infinite ease-in-out;
+      }
+
+      &.orb-2 {
+        width: 400px;
+        height: 400px;
+        background: #06b6d4;
+        bottom: -100px;
+        left: -100px;
+        animation: float 8s infinite ease-in-out reverse;
+      }
+    }
+  }
+
+  // --- Features Section ---
+  .features {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 4rem 2rem;
+    flex-wrap: wrap;
+    background: $bg-dark;
+    position: relative;
+    z-index: 5;
+
+    .feature-card {
+      background: $card-bg;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 16px;
+      text-align: center;
+      width: 300px;
+      transition: transform 0.3s ease;
+
+      .icon-circle {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        margin: 0 auto 1.5rem auto;
+      }
+
+      h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: #fff;
+      }
+
+      p {
+        color: $text-muted;
+        line-height: 1.6;
+      }
+
+      &:hover {
+        transform: translateY(-10px);
+        border-color: $primary-purple;
+      }
+    }
+  }
+
+  // --- Animations & Media Queries ---
+  
+  // Mobile Responsiveness
+  @media (max-width: 768px) {
+    .hero .content h1 {
+      font-size: 2.5rem;
+    }
+    .features {
+      flex-direction: column;
+      align-items: center;
+      
+      .feature-card {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// Keyframes נשארים בחוץ או בפנים, לא משנה ב-SCSS
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(20px, 40px); }
+}
+
+@keyframes popIn {
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// Utility classes for animations
+.animate-pop-in {
+  animation: popIn 0.8s cubic-bezier(0.26, 0.53, 0.74, 1.48) forwards;
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.animate-fade-up {
+  animation: fadeUp 1s ease-out forwards;
+  animation-delay: 0.3s;
+  opacity: 0;
+  transform: translateY(20px);
+}
