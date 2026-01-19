@@ -1,9 +1,7 @@
-// ייבוא פונט
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap');
 
-// משתנים (Variables) לשינוי קל של צבעים בעתיד
+// --- משתנים ---
 $bg-dark: #0f172a;
-$bg-gradient: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
 $primary-purple: #a855f7;
 $primary-pink: #ec4899;
 $text-color: #ffffff;
@@ -20,20 +18,51 @@ $card-bg: rgba(255, 255, 255, 0.05);
 }
 
 .home-container {
-
+  
   // --- Hero Section ---
   .hero {
     position: relative;
-    height: 80vh;
+    height: 85vh; // הגדלתי מעט את הגובה למראה מרשים
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: $bg-gradient;
     overflow: hidden;
+    background-color: #000; // צבע בסיס שחור עד שהסרטון נטען
+
+    // שכבת הצללה (Overlay) - נותנת אפקט קולנועי ומבליטה את הטקסט
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.3) 0%,
+        rgba(15, 23, 42, 0.8) 100%
+      );
+      z-index: 1;
+    }
+
+    // הסרטון עצמו
+    .background-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      z-index: 0;
+      //filter: brightness(0.8); // הכהיה קלה של הסרטון עצמו
+    }
 
     .content {
-      z-index: 10;
+      position: relative;
+      z-index: 10; // מעל הסרטון וההצללה
       max-width: 800px;
       padding: 20px;
 
@@ -41,72 +70,53 @@ $card-bg: rgba(255, 255, 255, 0.05);
         font-size: 4rem;
         font-weight: 900;
         margin-bottom: 1rem;
-        background: linear-gradient(to right, $primary-purple, $primary-pink);
+        background: linear-gradient(to right, #fff, $primary-purple, $primary-pink);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         line-height: 1.2;
+        filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
       }
 
       .subtitle {
         font-size: 1.5rem;
-        color: #cbd5e1;
+        color: #e2e8f0;
         margin-bottom: 3rem;
-        font-weight: 300;
+        font-weight: 400;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
       }
 
-      // כפתור המעבר לקטלוג
       .cta-button {
         background: linear-gradient(45deg, $primary-purple, $primary-pink);
         border: none;
-        padding: 18px 40px;
-        font-size: 1.2rem;
+        padding: 18px 45px;
+        font-size: 1.25rem;
         font-weight: bold;
         color: white;
         border-radius: 50px;
         cursor: pointer;
-        box-shadow: 0 0 20px rgba($primary-purple, 0.5);
+        box-shadow: 0 10px 25px rgba($primary-purple, 0.4);
         transition: all 0.3s ease;
         display: inline-flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
 
-        .icon {
-          font-size: 1.4rem;
-        }
-
-        // שימוש ב-& עבור Hover (תכונה של SCSS)
         &:hover {
-          transform: translateY(-3px) scale(1.05);
-          box-shadow: 0 0 40px rgba($primary-pink, 0.7);
+          transform: translateY(-5px);
+          box-shadow: 0 15px 35px rgba($primary-pink, 0.6);
         }
       }
     }
 
-    // אלמנטים זוהרים ברקע
+    // כדורים זוהרים (אופציונלי - שמתי ב-Z-INDEX נמוך כדי שלא יפריעו לסרטון)
     .glowing-orb {
       position: absolute;
       border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.4;
-      z-index: 1;
+      filter: blur(100px);
+      opacity: 0.2;
+      z-index: 2;
 
-      &.orb-1 {
-        width: 300px;
-        height: 300px;
-        background: $primary-purple;
-        top: -50px;
-        right: -50px;
-        animation: float 6s infinite ease-in-out;
-      }
-
-      &.orb-2 {
-        width: 400px;
-        height: 400px;
-        background: #06b6d4;
-        bottom: -100px;
-        left: -100px;
-        animation: float 8s infinite ease-in-out reverse;
-      }
+      &.orb-1 { width: 300px; height: 300px; background: $primary-purple; top: -50px; right: -50px; animation: float 10s infinite; }
+      &.orb-2 { width: 400px; height: 400px; background: #06b6d4; bottom: -100px; left: -100px; animation: float 12s infinite reverse; }
     }
   }
 
@@ -114,8 +124,8 @@ $card-bg: rgba(255, 255, 255, 0.05);
   .features {
     display: flex;
     justify-content: center;
-    gap: 2rem;
-    padding: 4rem 2rem;
+    gap: 2.5rem;
+    padding: 6rem 2rem;
     flex-wrap: wrap;
     background: $bg-dark;
     position: relative;
@@ -123,87 +133,69 @@ $card-bg: rgba(255, 255, 255, 0.05);
 
     .feature-card {
       background: $card-bg;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 2rem;
-      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      border-radius: 24px;
       text-align: center;
-      width: 300px;
-      transition: transform 0.3s ease;
+      width: 320px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
       .icon-circle {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        background: rgba(255, 255, 255, 0.1);
-        width: 80px;
-        height: 80px;
+        font-size: 2.8rem;
+        background: rgba($primary-purple, 0.15);
+        width: 90px;
+        height: 90px;
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 50%;
         margin: 0 auto 1.5rem auto;
+        color: $primary-purple;
       }
 
-      h3 {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-        color: #fff;
-      }
-
-      p {
-        color: $text-muted;
-        line-height: 1.6;
-      }
+      h3 { font-size: 1.6rem; margin-bottom: 0.8rem; color: #fff; }
+      p { color: $text-muted; line-height: 1.7; font-size: 1.05rem; }
 
       &:hover {
-        transform: translateY(-10px);
-        border-color: $primary-purple;
-      }
-    }
-  }
-
-  // --- Animations & Media Queries ---
-  
-  // Mobile Responsiveness
-  @media (max-width: 768px) {
-    .hero .content h1 {
-      font-size: 2.5rem;
-    }
-    .features {
-      flex-direction: column;
-      align-items: center;
-      
-      .feature-card {
-        width: 100%;
+        transform: translateY(-15px);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: $primary-pink;
       }
     }
   }
 }
 
-// Keyframes נשארים בחוץ או בפנים, לא משנה ב-SCSS
+// --- אנימציות ---
 @keyframes float {
   0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(20px, 40px); }
+  50% { transform: translate(30px, -30px); }
 }
 
-@keyframes popIn {
-  to { opacity: 1; transform: scale(1); }
-}
-
-@keyframes fadeUp {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-// Utility classes for animations
 .animate-pop-in {
   animation: popIn 0.8s cubic-bezier(0.26, 0.53, 0.74, 1.48) forwards;
   opacity: 0;
-  transform: scale(0.5);
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .animate-fade-up {
   animation: fadeUp 1s ease-out forwards;
   animation-delay: 0.3s;
   opacity: 0;
-  transform: translateY(20px);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// התאמה לניידים
+@media (max-width: 768px) {
+  .home-container .hero .content h1 { font-size: 2.8rem; }
+  .home-container .hero { height: 70vh; }
+  .home-container .features { padding: 3rem 1rem; }
 }

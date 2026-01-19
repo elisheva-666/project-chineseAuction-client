@@ -1,13 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { GiftGallery } from './components/purchaser/gift-gallery/gift-gallery';
-import { LoginComponent } from "./components/auth/login/login";
-import { RegisterComponent } from "./components/auth/register/register";
-
+import { Header } from "./components/layout/header/header";
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, GiftGallery, LoginComponent, RegisterComponent],
+  standalone: true, // (אם זה לא מופיע, תוסיפי גם את זה, אבל נראה שזה כבר מוגדר כ-standalone)
+  imports: [RouterOutlet,Header],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
